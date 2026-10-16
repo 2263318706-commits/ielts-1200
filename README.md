@@ -46,7 +46,7 @@ node scripts/build-data.mjs --in data/words.csv --strict
 - `data/words.json` —— 网页运行时优先加载
 - `data/words.js` —— 内联回退，保证 `file://` 双击也能用
 
-`--strict` 表示缺中文释义就直接报错退出，建议用上，避免词表带着空洞上线。
+`--strict` 表示缺中文释义就直接报错退出，建议，避免词表带着空洞上线。
 
 ### 第 3 步：自检
 
@@ -54,7 +54,7 @@ node scripts/build-data.mjs --in data/words.csv --strict
 node scripts/run-tests.mjs
 ```
 
-会做三件事：词表体检、出题引擎自测、端到端场景回归。
+词表体检、出题引擎自测、端到端场景回归。
 
 ## 功能
 
@@ -64,7 +64,7 @@ node scripts/run-tests.mjs
 - **拼写提示**逐级揭示：不提示 / 只给长度 / 按字母揭示，另有「共 N 个字母」提示
 - **答对自动下一题**，可关掉留着看例句
 - **错题本**：答错的词自动进本，答对一次自动移出，可一键集中复习
-- **发音**：调用浏览器自带语音合成，无需联网音频
+- **发音**：调用浏览器自带语音合成
 - **深色 / 浅色主题**，跟随系统或手动切换
 - **键盘操作**：数字键 `1`–`6` 选择，`Enter` 提交 / 下一题
 - **进度存本地**（localStorage），可导出/导入 JSON 换设备迁移
@@ -82,7 +82,7 @@ ielts-1200/
 │   ├── quiz.js             出题引擎（纯函数，不碰 DOM）
 │   └── app.js              界面渲染 / 路由 / 事件
 ├── data/
-│   ├── words.csv           词表源文件 ← 你只需要改这个
+│   ├── words.csv           词表源文件 ← 只需要改这个
 │   ├── words.json          生成物：运行时词库
 │   └── words.js            生成物：内联回退词库
 ├── scripts/
@@ -90,7 +90,7 @@ ielts-1200/
 │   ├── validate.mjs        词表体检
 │   └── run-tests.mjs       自检总入口
 └── dev/
-    ├── harness.mjs         在 Node 里把网页应用跑起来
+    ├── harness.mjs         在 Node 里跑网页应用
     ├── mini-dom.mjs        极简 DOM 实现
     ├── e2e.mjs             端到端场景测试
     └── make-template.mjs   从 words.json 反导出 CSV 模板
@@ -98,7 +98,7 @@ ielts-1200/
 
 ## 说明
 
-- 所有进程数据只存在**浏览器**里（localStorage），不联网上传任何东西。
+- 所有进程数据只存在**浏览器**里（localStorage），不联网
 - 词库文件是静态资源，部署到 GitHub Pages 后是公开的。
 - 换设备/换浏览器迁移进度：设置 → 数据 → 导出进度，在新设备导入。
 
