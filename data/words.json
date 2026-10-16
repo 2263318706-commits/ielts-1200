@@ -1,0 +1,311 @@
+{
+  "schema": 1,
+  "meta": {
+    "title": "1200 雅思核心词汇（占位示例集）",
+    "count": 30,
+    "note": "由 scripts/build-data.mjs 生成，请勿手工编辑；改词表请改源 CSV 后重新生成。",
+    "generatedAt": "2026-10-16T09:27:43.960Z"
+  },
+  "words": [
+    {
+      "id": "abandon",
+      "word": "abandon",
+      "phonetic": "/əˈbændən/",
+      "pos": "v.",
+      "cn": "放弃；抛弃",
+      "en": "to give up completely",
+      "example": "They had to <b>abandon</b> the plan because of the storm.",
+      "exampleCn": "由于暴风雨，他们不得不放弃这个计划。"
+    },
+    {
+      "id": "abstract",
+      "word": "abstract",
+      "phonetic": "/ˈæbstrækt/",
+      "pos": "adj.",
+      "cn": "抽象的",
+      "en": "existing as an idea rather than a physical thing",
+      "example": "Beauty is an <b>abstract</b> concept.",
+      "exampleCn": "美是一个抽象的概念。"
+    },
+    {
+      "id": "academic",
+      "word": "academic",
+      "phonetic": "/ˌækəˈdemɪk/",
+      "pos": "adj.",
+      "cn": "学术的；学业的",
+      "en": "relating to education and study",
+      "example": "Her <b>academic</b> record is excellent.",
+      "exampleCn": "她的学业成绩非常优秀。"
+    },
+    {
+      "id": "accommodate",
+      "word": "accommodate",
+      "phonetic": "/əˈkɒmədeɪt/",
+      "pos": "v.",
+      "cn": "容纳；为…提供住处；适应",
+      "en": "to provide room or make suitable",
+      "example": "The hall can <b>accommodate</b> 500 people.",
+      "exampleCn": "这个大厅能容纳五百人。"
+    },
+    {
+      "id": "accumulate",
+      "word": "accumulate",
+      "phonetic": "/əˈkjuːmjəleɪt/",
+      "pos": "v.",
+      "cn": "积累；积聚",
+      "en": "to gradually collect or increase",
+      "example": "Dust had <b>accumulated</b> on the shelves.",
+      "exampleCn": "架子上积满了灰尘。"
+    },
+    {
+      "id": "acquire",
+      "word": "acquire",
+      "phonetic": "/əˈkwaɪə/",
+      "pos": "v.",
+      "cn": "获得；学到",
+      "en": "to obtain or gain something",
+      "example": "Children <b>acquire</b> language remarkably fast.",
+      "exampleCn": "儿童习得语言的速度快得惊人。"
+    },
+    {
+      "id": "adequate",
+      "word": "adequate",
+      "phonetic": "/ˈædɪkwət/",
+      "pos": "adj.",
+      "cn": "足够的；适当的",
+      "en": "enough in amount or good enough in quality",
+      "example": "The lighting here is not <b>adequate</b> for reading.",
+      "exampleCn": "这里的光线不够，不适宜阅读。"
+    },
+    {
+      "id": "advocate",
+      "word": "advocate",
+      "phonetic": "/ˈædvəkeɪt/",
+      "pos": "v.",
+      "cn": "提倡；主张；拥护者",
+      "en": "to publicly support an idea",
+      "example": "Many experts <b>advocate</b> a shorter working week.",
+      "exampleCn": "许多专家主张缩短每周工作时间。"
+    },
+    {
+      "id": "allocate",
+      "word": "allocate",
+      "phonetic": "/ˈæləkeɪt/",
+      "pos": "v.",
+      "cn": "分配；拨给",
+      "en": "to distribute for a purpose",
+      "example": "The council will <b>allocate</b> extra funds to schools.",
+      "exampleCn": "议会将向学校额外拨款。"
+    },
+    {
+      "id": "ambiguous",
+      "word": "ambiguous",
+      "phonetic": "/æmˈbɪɡjuəs/",
+      "pos": "adj.",
+      "cn": "模棱两可的；含糊的",
+      "en": "having more than one possible meaning",
+      "example": "His reply was deliberately <b>ambiguous</b>.",
+      "exampleCn": "他的回答故意含糊不清。"
+    },
+    {
+      "id": "anticipate",
+      "word": "anticipate",
+      "phonetic": "/ænˈtɪsɪpeɪt/",
+      "pos": "v.",
+      "cn": "预料；预期",
+      "en": "to expect something to happen",
+      "example": "We <b>anticipate</b> a rise in demand next year.",
+      "exampleCn": "我们预计明年的需求会上升。"
+    },
+    {
+      "id": "apparent",
+      "word": "apparent",
+      "phonetic": "/əˈpærənt/",
+      "pos": "adj.",
+      "cn": "明显的；表面上的",
+      "en": "easy to see or understand; seeming",
+      "example": "It soon became <b>apparent</b> that no one was in charge.",
+      "exampleCn": "很快就明显看出没有人负责。"
+    },
+    {
+      "id": "approach",
+      "word": "approach",
+      "phonetic": "/əˈprəʊtʃ/",
+      "pos": "n.",
+      "cn": "方法；途径；接近",
+      "en": "a way of dealing with something",
+      "example": "We need a fresh <b>approach</b> to this problem.",
+      "exampleCn": "我们需要用新方法来处理这个问题。"
+    },
+    {
+      "id": "assess",
+      "word": "assess",
+      "phonetic": "/əˈses/",
+      "pos": "v.",
+      "cn": "评估；评定",
+      "en": "to judge the quality or value of something",
+      "example": "Teachers <b>assess</b> students' progress each term.",
+      "exampleCn": "老师每学期评估学生的进步情况。"
+    },
+    {
+      "id": "assume",
+      "word": "assume",
+      "phonetic": "/əˈsjuːm/",
+      "pos": "v.",
+      "cn": "假定；认为；承担",
+      "en": "to accept as true without proof",
+      "example": "Do not <b>assume</b> that everyone agrees with you.",
+      "exampleCn": "不要以为每个人都同意你的看法。"
+    },
+    {
+      "id": "attain",
+      "word": "attain",
+      "phonetic": "/əˈteɪn/",
+      "pos": "v.",
+      "cn": "达到；获得",
+      "en": "to succeed in achieving something",
+      "example": "She <b>attained</b> her goal after years of effort.",
+      "exampleCn": "经过多年的努力，她达到了目标。"
+    },
+    {
+      "id": "beneficial",
+      "word": "beneficial",
+      "phonetic": "/ˌbenɪˈfɪʃl/",
+      "pos": "adj.",
+      "cn": "有益的；有利的",
+      "en": "having a good effect",
+      "example": "Regular exercise is <b>beneficial</b> to health.",
+      "exampleCn": "经常锻炼对健康有益。"
+    },
+    {
+      "id": "comprehensive",
+      "word": "comprehensive",
+      "phonetic": "/ˌkɒmprɪˈhensɪv/",
+      "pos": "adj.",
+      "cn": "全面的；综合的",
+      "en": "including everything necessary",
+      "example": "The report gives a <b>comprehensive</b> review of the market.",
+      "exampleCn": "这份报告对市场做了全面回顾。"
+    },
+    {
+      "id": "consequently",
+      "word": "consequently",
+      "phonetic": "/ˈkɒnsɪkwəntli/",
+      "pos": "adv.",
+      "cn": "因此；所以",
+      "en": "as a result",
+      "example": "He missed the train and <b>consequently</b> arrived late.",
+      "exampleCn": "他没赶上火车，因此迟到了。"
+    },
+    {
+      "id": "conserve",
+      "word": "conserve",
+      "phonetic": "/kənˈsɜːv/",
+      "pos": "v.",
+      "cn": "保护；节约",
+      "en": "to protect from harm or waste",
+      "example": "We should <b>conserve</b> water in dry seasons.",
+      "exampleCn": "旱季我们应该节约用水。"
+    },
+    {
+      "id": "controversial",
+      "word": "controversial",
+      "phonetic": "/ˌkɒntrəˈvɜːʃl/",
+      "pos": "adj.",
+      "cn": "有争议的",
+      "en": "causing disagreement",
+      "example": "The new policy is highly <b>controversial</b>.",
+      "exampleCn": "新政策引起了很大争议。"
+    },
+    {
+      "id": "crucial",
+      "word": "crucial",
+      "phonetic": "/ˈkruːʃl/",
+      "pos": "adj.",
+      "cn": "至关重要的",
+      "en": "extremely important",
+      "example": "Timing is <b>crucial</b> in this experiment.",
+      "exampleCn": "在这个实验中，时机至关重要。"
+    },
+    {
+      "id": "decline",
+      "word": "decline",
+      "phonetic": "/dɪˈklaɪn/",
+      "pos": "v.",
+      "cn": "下降；拒绝；衰退",
+      "en": "to become smaller or weaker; to refuse",
+      "example": "Sales <b>declined</b> sharply last quarter.",
+      "exampleCn": "上季度销售额急剧下降。"
+    },
+    {
+      "id": "demonstrate",
+      "word": "demonstrate",
+      "phonetic": "/ˈdemənstreɪt/",
+      "pos": "v.",
+      "cn": "证明；演示；示威",
+      "en": "to show clearly",
+      "example": "The study <b>demonstrates</b> a clear link between diet and mood.",
+      "exampleCn": "这项研究证明了饮食与情绪之间有明确联系。"
+    },
+    {
+      "id": "derive",
+      "word": "derive",
+      "phonetic": "/dɪˈraɪv/",
+      "pos": "v.",
+      "cn": "源自；获得",
+      "en": "to obtain or come from a source",
+      "example": "Many English words <b>derive</b> from Latin.",
+      "exampleCn": "许多英语单词源自拉丁语。"
+    },
+    {
+      "id": "distinguish",
+      "word": "distinguish",
+      "phonetic": "/dɪˈstɪŋɡwɪʃ/",
+      "pos": "v.",
+      "cn": "区分；辨别",
+      "en": "to recognize the difference between things",
+      "example": "Babies can <b>distinguish</b> their mother's voice.",
+      "exampleCn": "婴儿能分辨出母亲的声音。"
+    },
+    {
+      "id": "diverse",
+      "word": "diverse",
+      "phonetic": "/daɪˈvɜːs/",
+      "pos": "adj.",
+      "cn": "多样的；不同的",
+      "en": "of many different kinds",
+      "example": "The city has a <b>diverse</b> population.",
+      "exampleCn": "这座城市的人口构成十分多元。"
+    },
+    {
+      "id": "dominate",
+      "word": "dominate",
+      "phonetic": "/ˈdɒmɪneɪt/",
+      "pos": "v.",
+      "cn": "支配；占主导",
+      "en": "to have control or be the most important",
+      "example": "A few firms <b>dominate</b> the industry.",
+      "exampleCn": "少数几家公司主导着这个行业。"
+    },
+    {
+      "id": "efficient",
+      "word": "efficient",
+      "phonetic": "/ɪˈfɪʃnt/",
+      "pos": "adj.",
+      "cn": "高效的；效率高的",
+      "en": "working well without waste",
+      "example": "Public transport here is cheap and <b>efficient</b>.",
+      "exampleCn": "这里的公共交通既便宜又高效。"
+    },
+    {
+      "id": "emerge",
+      "word": "emerge",
+      "phonetic": "/ɪˈmɜːdʒ/",
+      "pos": "v.",
+      "cn": "出现；显露",
+      "en": "to appear or become known",
+      "example": "New evidence has <b>emerged</b> in the case.",
+      "exampleCn": "该案出现了新证据。"
+    }
+  ]
+}

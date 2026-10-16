@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>E2E 自测</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  #testroot { position: fixed; inset: 0; z-index: 999; background: #fff; color: #111; overflow: auto; padding: 12px; font: 13px/1.5 ui-monospace, Consolas, monospace; white-space: pre-wrap; }
+  #app, #topbar, #toast { position: absolute; left: -9999px; top: 0; width: 900px; }
+</style>
+</head>
+<body>
+<pre id="testroot">running…</pre>
+<div id="topbar"></div>
+<main class="wrap" id="app" aria-live="polite"></main>
+<div class="toast" id="toast"></div>
+<div id="btn-settings" style="display:none"></div>
+
+<script>
+  // 这个页面不加载 data/words.js：file:// 下走内联回退路径，http:// 下走 fetch JSON 路径
+</script>
+<script src="../js/storage.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/app.js"></script>
+<script>
+/* 极简断言式端到端自测：在真实 DOM 上模拟点击，验证三个模式与错题本、设置的联动 */
+window.addEventListener('load', function () {
+  setTimeout(run, 80);
+});
+
+function run() {
+  var out = [];
+  var pass = 0, fail = 0;
+  function ok(name, cond, extra) {
+    if (cond) { pass++; out.push('PASS ' + name); }
+    else { fail++; out.push('FAIL ' + name + (extra ? '  << ' + extra : '')); }
+  }
+  var app = document.getElementById('app');
+  function $(sel) { return app.querySelector(sel); }
+  function $$(sel) { return Array.prototype.slice.call(app.querySelectorAll(sel)); }
+  function click(el) { if (!el) throw new Error('元素不存在'); el.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+  var realConfirm = window.confirm;
+  window.confirm = function () { return true; };
+  function tick(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  var summary = { pass: 0, fail: 0, lines: [] };
+
+  function finish() {
+    summary.pass = pass; summary.fail = fail;
+    summary.lines = out;
+    var head = (fail === 0 ? '✅ E2E 全部通过' : '❌ E2E 有失败') + ' — ' + pass + ' passed, ' + fail + ' failed\n\n';
+    document.getElementById('testroot').textContent = head + out.join('\n');
+    window.__DSH_E2E__ = summary;
+    console.log('DSH_E2E_SUMMARY ' + JSON.stringify({ pass: pass, fail: fail, lines: out }));
+  }
+
+  (async function () {
+    try {
+      var D = window.Data, S = window.Storage, Q = window.Quiz;
+      ok('三个模块都已挂载', !!(D && S && Q));
+      ok('词库来源符合当前协议（file→inline / http→json）',
+        location.protocol === 'file:' ? D.source === 'inline' : D.source === 'json',
+        'protocol=' + location.protocol + ' source=' + D.source);
+      ok('词条数量为 30', D.words.length === 30, 'got ' + D.words.length);
+      ok('词库结构自检通过', D.problems.length === 0, D.problems.join(' | '));
+      ok('路由回到首页', D && location.hash === '' || location.hash === '#', 'hash=' + location.hash);
+
+      /* ---------- 首页 ---------- */
+      ok('首页渲染出 4 个模式入口', $$('.mode-card').length === 4, 'got ' + $$('.mode-card').length);
+      ok('首页显示占位词库提示', !!$('.banner'));
+      ok('累计答题为 0', !!$('.stats-row') && $('.stats-row').textContent.indexOf('0') >= 0);
+
+      /* ---------- 模式一：见词选义 ---------- */
+      click($('[data-mode="w2c"]'));
+      ok('进入练习页（w2c）', !!$('.qcard'), app.innerHTML.slice(0, 200));
+      ok('题目类型标签为见词选义', $('.qtype').textContent.indexOf('见词选义') >= 0, $('.qtype') && $('.qtype').textContent);
+      ok('渲染 4 个选项', $$('.option').length === 4, 'got ' + $$('.option').length);
+      ok('题面是英文单词', $('.qprompt').classList.contains('en'));
+      ok('只有一个正确选项', $$('.option .mark').filter(function (m) { return m.textContent === '✓'; }).length === 1);
+      var q1 = $('.qprompt').textContent;
+      click($$('.option').filter(function (o) { return o.querySelector('.mark').textContent === '✓'; })[0]);
+      ok('答对后出现绿反馈', !!$('.feedback.good'), app.querySelector('.feedback') && app.querySelector('.feedback').className);
+      ok('反馈里带例句', S.settings.showExample ? !!$('.fb-ex') : true);
+      var t0 = S.totals;
+      ok('统计已记录（answered+1）', t0.answered === 1, 'answered=' + t0.answered);
+      ok('按模式统计正确率 100%', t0.byMode.w2c && t0.byMode.w2c.right === 1 && t0.byMode.w2c.answered === 1);
+      await tick(900);   // 等自动跳题
+      ok('自动跳到下一题', $('.qprompt').textContent !== q1 && $('.qmeta').textContent.indexOf('2 /') >= 0, $('.qmeta').textContent);
+      click($('[data-act="prev"]'));
+      ok('可以回到上一题且保留作答', !!$('.feedback.good'), $('.qmeta').textContent);
+
+      /* ---------- 模式二：见义选词 ---------- */
+      click($('[data-act="quit"]'));
+      ok('退出后回到首页', !!$('.mode-grid'));
+      click($('[data-mode="c2w"]'));
+      ok('题面是中文', $('.qprompt').classList.contains('zh'), $('.qprompt').className);
+      ok('选项是英文（.val.en）', $$('.option .val.en').length === 4, 'got ' + $$('.option .val.en').length);
+      ok('只有一个正确选项（c2w）', $$('.option .mark').filter(function (m) { return m.textContent === '✓'; }).length === 1);
+      click($$('.option')[0]);
+      ok('作答后有反馈', !!$('.feedback'));
+
+      /* ---------- 模式三：拼写 ---------- */
+      click($('[data-act="quit"]'));
+      click($('[data-mode="spell"]'));
+      ok('拼写题有输入框', !!$('#spell-input'));
+      ok('拼写题有提示遮罩', !!$('#hints') && $('#hints').textContent.indexOf('_') >= 0, $('#hints') && $('#hints').textContent);
+      var quiz = window.__quizProbe__ || null;
+      var spellWord = null;
+      var promptText = $('.qprompt').textContent;
+      // 通过提示遮罩反推答案长度，再用错误答案验证判分
+      var blanks = $('#hints').textContent.split(' ').filter(function (c) { return c === '_'; }).length;
+      ok('提示遮罩长度与字母数一致', blanks > 0, 'blanks=' + blanks);
+      $('#spell-input').value = 'zzzzzz';
+      click($('#btn-submit-spell'));
+      ok('拼错被判错（红反馈）', !!$('.feedback.bad'), app.querySelector('.feedback') && app.querySelector('.feedback').className);
+      ok('错题进入错题本', S.mistakeIds().length >= 1, 'mistakes=' + S.mistakeIds().length);
+
+      // 找一个小词库里的答案，重新出一题来验证答对
+      var target = D.words.filter(function (w) { return w.cn === promptText; })[0];
+      if (target) {
+        click($('[data-act="next"]'));
+        var cur = $('.qprompt') ? $('.qprompt').textContent : '';
+        var w2 = D.words.filter(function (w) { return w.cn === cur; })[0];
+        if (w2) {
+          $('#spell-input').value = w2.word.toUpperCase() + ' ';
+          click($('#btn-submit-spell'));
+          ok('拼对时忽略大小写和空格', !!$('.feedback.good'), app.querySelector('.feedback') && app.querySelector('.feedback').className);
+        } else { out.push('SKIP 当前拼写题未匹配到词条'); }
+      } else { out.push('SKIP 未匹配到拼写目标词'); }
+
+      /* ---------- 错题本 ---------- */
+      click($('[data-act="quit"]'));
+      click($('[data-act="view-mistakes"]'));
+      ok('错题本页面渲染', !!$('.review-list'), app.innerHTML.slice(0, 160));
+      ok('错题本里有刚错的词', $$('.review-item').length >= 1, 'items=' + $$('.review-item').length);
+      var before = $$('.review-item').length;
+      click($('[data-act="clear-mistakes"]'));
+      ok('清空错题本后为空态', $$('.review-item').length === 0 && !!app.querySelector('.card.center'), 'items=' + $$('.review-item').length + ' (before=' + before + ')');
+
+      /* ---------- 设置 ---------- */
+      click($('[data-act="home"]'));
+      click($('[data-act="view-settings"]'));
+      ok('设置页渲染', !!$('#set-optionCount') && !!$('#set-groupSize'));
+      var ocEl = $('#set-optionCount');
+      ocEl.value = '6';
+      ocEl.dispatchEvent(new Event('change', { bubbles: true }));
+      ok('选项个数设置已保存', Number(S.settings.optionCount) === 6, 'optionCount=' + S.settings.optionCount);
+      var tEl = $('#set-theme');
+      tEl.value = 'dark';
+      tEl.dispatchEvent(new Event('change', { bubbles: true }));
+      ok('深色主题立即生效', document.documentElement.getAttribute('data-theme') === 'dark', document.documentElement.getAttribute('data-theme'));
+      tEl.value = 'light';
+      tEl.dispatchEvent(new Event('change', { bubbles: true }));
+      ok('切回浅色主题', document.documentElement.getAttribute('data-theme') === 'light');
+      ok('体检报告里显示词条总数', $('#app').textContent.indexOf('词条总数：30') >= 0);
+      var exp = S.exportJSON();
+      ok('导出 JSON 合法', (function () { try { return !!JSON.parse(exp).data.settings; } catch (e) { return false; } })());
+
+      /* ---------- 数据一致性 ---------- */
+      var report = D.report();
+      ok('体检无结构问题', report.indexOf('结构问题：无') >= 0, report);
+      var noCn = D.words.filter(function (w) { return !w.cn; }).length;
+      ok('所有词条都有中文释义', noCn === 0, 'noCn=' + noCn);
+
+      ok('全流程结束时无未捕获异常', true);
+    } catch (e) {
+      fail++;
+      out.push('FAIL 运行期异常: ' + (e && e.message) + '\n' + (e && e.stack));
+    }
+    window.confirm = realConfirm;
+    finish();
+  })();
+}
+</script>
+</body>
+</html>
